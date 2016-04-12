@@ -11,11 +11,12 @@ def update
   border
   puts "  Would you like to update a (V)oter or a (P)olitician?"
   choice = get
-  until get == "V" || get == "P" do
+  until choice == "V" || choice == "P" do
     puts "  Would you like to update a (V)oter or a (P)olitician?"
     choice = get
   end
-  if choice == "P"
+  case choice
+  when "P"
     list_pol
     puts "  Which politician would you like to update?"
     politician = get
@@ -33,16 +34,19 @@ def update
         update
       end
     end
-  else
+  when "V"
     border
     list_voter
-
-    puts "  What Voter would you like to update?"
-    voter = get
-    until Voter.all_voters.key? voter do
+    if Voter.all_voters.empty?
+      puts "No voters currently in register"
+    elsif Voter.all_voters.key? voter
       puts "  Please select voter from above list."
       voter = get
+    else
+      puts "  What Voter would you like to update?"
+      voter = get
+      Voter.all_voters.delete voter
     end
-    Voter.all_voters.delete voter
+    create_voter
   end
 end

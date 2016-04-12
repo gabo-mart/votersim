@@ -9,6 +9,7 @@ end
 def border
   puts "##" * 40
 end
+
 loop do
   class VotingSimulation
     puts "\n\nWelcome to the Voting Simulation! The fate of our country is in your hands!
